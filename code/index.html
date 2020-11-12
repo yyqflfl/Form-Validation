@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <span>请输入用户名:</span>
+            <input type="text" v-model.lazy='uname'>
+            <span>{{tips}}</span>
+        </div>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                uname: '',
+                tips: ''
+            },
+            methods: {
+                checkName: function(uname) {
+                    var that = this;
+                    setTimeout(function() {
+                        if (uname == 'yyq') {
+                            that.tips = '用户名正确';
+                        } else {
+                            that.tips = '用户名不存在';
+                        }
+                    }, 1000)
+                }
+            },
+            watch: {
+                uname: function(value) {
+                    // 调用后台接口验证用户名的合法性
+                    this.checkName(value);
+                    this.tips = '正在验证用户名';
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
